@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-custom {
+    @apply bg-slate-300  text-slate-800 font-bold py-2 px-4 h-10 w-24 text-center rounded-3xl;
+  }
