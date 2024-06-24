@@ -6,10 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body>
-    <button class="btn btn-primary">Button</button>
-
-
+  <body class="w-full bg-slate-600">
+      <div class="flex">
+        <div id="left">
+          <div id="leftUpper" class="h-20 w-[350px] bg-yellow-500 border-b-2 border-r-2 border-slate-100">
+          </div>
+          <div id="leftlower" class="h-[100vh] w-[350px] bg-yellow-500 overflow-auto border-r-2">
+          </div>
+        </div>
+        <div id="right">
+          <div id="rightUpper" class="h-20 w-[100vh] bg-yellow-500 border-b-2 border-slate-100">
+          </div>
+          <div id="rightlower" class="h-[100vh] w-[100vh] bg-yellow-500 overflow-auto">
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
