@@ -8,3 +8,6 @@
 .btn-custom2{
     @apply h-12 w-16 bg-teal-50 border-none;
 }
+.dropdown-bottom-custom .dropdown-content {
+  @apply top-[52px] right-6 max-sm:right-3 origin-top;
+}
