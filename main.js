@@ -28,8 +28,12 @@ const themeState = {
 };
 body.classList.remove(body.classList.item(0))
 const startTheme=localStorage.getItem('theme');
-console.log(startTheme);
-body.classList.add(`${themeState[startTheme]}`);
+if(!startTheme){
+    body.classList.add(themeState['default']);
+}
+else{
+    body.classList.add(`${themeState[startTheme]}`);
+}
 
 themeChanging();
 function themeChanging() {
@@ -40,7 +44,6 @@ function themeChanging() {
             body.classList.remove(`${themeState[curTheme]}`);
             localStorage.setItem('theme','dark');
         }
-        
     });
     tDefault.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
