@@ -26,14 +26,10 @@ const themeState = {
     autumn: "bg-orange-100",
     solarizedNight: "bg-[#000035]"
 };
-body.classList.remove(body.classList.item(0))
-const startTheme=localStorage.getItem('theme');
-if(!startTheme){
-    body.classList.add(themeState['default']);
-}
-else{
-    body.classList.add(`${themeState[startTheme]}`);
-}
+
+let startTheme=localStorage.getItem('theme');
+// if(!startTheme) startTheme='default';
+body.classList.add(`${themeState[startTheme]}`);
 
 themeChanging();
 function themeChanging() {
