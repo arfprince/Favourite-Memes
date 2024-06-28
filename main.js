@@ -28,7 +28,7 @@ const themeState = {
 };
 
 let startTheme=localStorage.getItem('theme');
-// if(!startTheme) startTheme='default';
+if(!startTheme) startTheme='default';
 body.classList.add(`${themeState[startTheme]}`);
 
 themeChanging();
