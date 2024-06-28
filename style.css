@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .btn-custom {
-    @apply bg-slate-300  text-slate-800 font-semibold h-8 w-32 max-sm:w-[40px] text-center py-1 rounded-3xl;
+    @apply bg-slate-300  text-slate-800 font-semibold h-8 w-32 text-center py-1 rounded-3xl max-sm:h-5 max-sm:w-4;
   }
 .btn-custom2{
     @apply h-12 w-16 bg-teal-50 border-none;
