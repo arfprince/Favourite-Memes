@@ -2,124 +2,109 @@ import './style.css';
 
 const tDark = document.querySelector("#dark");
 const tDefault = document.querySelector("#default");
-const tDracula = document.querySelector("#dracula");
-const tWarm = document.querySelector("#warm");
-const tCool = document.querySelector("#cool");
-const tHighContrast = document.querySelector("#highContrast");
-const tPastel = document.querySelector("#pastel");
+const tValentine = document.querySelector("#valentine");
+const tSynthwave = document.querySelector("#synthwave");
+const tRetro = document.querySelector("#retro");
+const tCyberpunk = document.querySelector("#cyberpunk");
+const tAqua = document.querySelector("#aqua");
 const tForest = document.querySelector("#forest");
-const tOcean = document.querySelector("#ocean");
-const tAutumn = document.querySelector("#autumn");
-const tSolarizedNight= document.querySelector("#solarizedNight");
-const body = document.querySelector("body");
-
-const themeState = {
-    default: "bg-white",
-    dark: "bg-grey-900",
-    dracula: "bg-red-950",
-    warm: "bg-yellow-100",
-    cool: "bg-blue-100",
-    highContrast: "bg-black",
-    pastel: "bg-pink-100",
-    forest: "bg-[#22311D]",
-    ocean: "bg-[#259faf]",
-    autumn: "bg-orange-100",
-    solarizedNight: "bg-[#000035]"
-};
+const tBlack = document.querySelector("#black");
+const tCoffee = document.querySelector("#coffee");
+const tDim= document.querySelector("#dim");
+const tLemonade= document.querySelector("#lemonade");
 
 let startTheme=localStorage.getItem('theme');
-if(!startTheme) startTheme='default';
-body.classList.add(`${themeState[startTheme]}`);
+if(!startTheme) {
+    localStorage.setItem('theme','light');
+}else{
+    document.documentElement.setAttribute("data-theme", startTheme);
+}
 
-themeChanging();
 function themeChanging() {
     tDark.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='dark'){
-            body.classList.add(`${themeState['dark']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
+            document.documentElement.setAttribute("data-theme", "dark");
             localStorage.setItem('theme','dark');
         }
     });
     tDefault.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='default'){
-            body.classList.add(`${themeState['default']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','default');
+        if(curTheme!=="light"){
+            document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem('theme','light');
         }
     });
-    tDracula.addEventListener("click", () => {
+    tValentine.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='dracula'){
-            body.classList.add(`${themeState['dracula']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','dracula');
+        if(curTheme!=='valentine'){
+            document.documentElement.setAttribute("data-theme", "valentine");
+            localStorage.setItem('theme','valentine');
         }
     });
-    tWarm.addEventListener("click", () => {
+    tSynthwave.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='warm'){
-            body.classList.add(`${themeState['warm']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','warm');
+        if(curTheme!=='synthwave'){
+            document.documentElement.setAttribute("data-theme", "synthwave");
+            localStorage.setItem('theme','synthwave');
         }
     });
-    tCool.addEventListener("click", () => {
+    tRetro.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='cool'){
-            body.classList.add(`${themeState['cool']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','cool');
+        if(curTheme!=='retro'){
+            document.documentElement.setAttribute("data-theme", "retro");
+            localStorage.setItem('theme','retro');
         }
     });
-    tHighContrast.addEventListener("click", () => {
+    tCyberpunk.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='highContrast'){
-            body.classList.add(`${themeState['highContrast']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','highContrast');
+        if(curTheme!=='cyberpunk'){
+            document.documentElement.setAttribute("data-theme", "cyberpunk");
+            localStorage.setItem('theme','cyberpunk');
         }
     });
-    tPastel.addEventListener("click", () => {
+    tAqua.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='pastel'){
-            body.classList.add(`${themeState['pastel']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','pastel');
+        if(curTheme!=='aqua'){
+            document.documentElement.setAttribute("data-theme", "aqua");
+            localStorage.setItem('theme','aqua');
         }
     });
     tForest.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='forest'){
-            body.classList.add(`${themeState['forest']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
+            document.documentElement.setAttribute("data-theme", "forest");
             localStorage.setItem('theme','forest');
         }
     });
-    tOcean.addEventListener("click", () => {
+    tBlack.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='ocean'){
-            body.classList.add(`${themeState['ocean']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','ocean');
+        if(curTheme!=='black'){
+            document.documentElement.setAttribute("data-theme", "black");
+            localStorage.setItem('theme','black');
         }
     });
-    tAutumn.addEventListener("click", () => {
+    tCoffee.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='autumn'){
-            body.classList.add(`${themeState['autumn']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','autumn');
+        if(curTheme!=='coffee'){
+            document.documentElement.setAttribute("data-theme", "coffee");
+            localStorage.setItem('theme','coffee');
         }
     });
-    tSolarizedNight.addEventListener("click", () => {
+    tDim.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
-        if(curTheme!=='solarizedNight'){
-            body.classList.add(`${themeState['solarizedNight']}`);
-            body.classList.remove(`${themeState[curTheme]}`);
-            localStorage.setItem('theme','solarizedNight');
+        if(curTheme!=='dim'){
+            document.documentElement.setAttribute("data-theme", "dim");
+            localStorage.setItem('theme','dim');
+        }
+    });
+    tLemonade.addEventListener("click", () => {
+        const curTheme=localStorage.getItem('theme');
+        if(curTheme!=='lemonade'){
+            document.documentElement.setAttribute("data-theme", "lemonade");
+            localStorage.setItem('theme','lemonade');
         }
     });
 
 }
+themeChanging();

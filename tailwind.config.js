@@ -2,7 +2,7 @@ import daisyui from "daisyui";
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
+    "./*.html",
     "./*.js",
   ],
   theme: {
@@ -11,4 +11,19 @@ export default {
   plugins: [
     daisyui,
   ],
+  daisyui: {
+    themes: ["light",
+      "dark",
+      "valentine",
+      "synthwave",
+      "retro",
+      "cyberpunk",
+      "forest",
+      "aqua",
+      "black",
+      "coffee",
+      "dim",
+      "lemonade"
+    ],
+  },
 }
