@@ -1,4 +1,6 @@
 import './style.css';
+const axios = require('axios');
+const fs = require('fs');
 
 const tDark = document.querySelector("#dark");
 const tDefault = document.querySelector("#default");
@@ -10,8 +12,11 @@ const tAqua = document.querySelector("#aqua");
 const tForest = document.querySelector("#forest");
 const tBlack = document.querySelector("#black");
 const tCoffee = document.querySelector("#coffee");
-const tDim= document.querySelector("#dim");
-const tLemonade= document.querySelector("#lemonade");
+const tDim = document.querySelector("#dim");
+const tLemonade = document.querySelector("#lemonade");
+const saveApiId=document.querySelector("#saveApiId");
+const apiElements=document.querySelector("#apiElements");
+const memeFeed=document.querySelector("#memeFeed");
 
 let startTheme=localStorage.getItem('theme');
 if(!startTheme) {
@@ -19,7 +24,6 @@ if(!startTheme) {
 }else{
     document.documentElement.setAttribute("data-theme", startTheme);
 }
-
 function themeChanging() {
     tDark.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
@@ -108,3 +112,48 @@ function themeChanging() {
 
 }
 themeChanging();
+
+async function getMemes(apiKey) {
+    const res = await fetch(apiKey);
+    const data = await res.json();
+    return data.products;
+}
+
+function saveDataToFile(data) {
+    fs.writeFile("db.json", JSON.stringify(data), (err) => {
+        if (err) {
+            console.error('Error writing to JSON file:', err);
+        } else {
+            console.log(`Data saved to db.json`);
+        }
+    });
+}
+
+let apiKey=localStorage.getItem('apiKey');
+async function randerMemes() {
+    if(apiKey){
+        apiElements.classList.add("hidden");
+        memeFeed.classList.remove("hidden");
+
+        let data = localStorage.getItem('memeInfo');
+        data = JSON.parse(data);
+
+    }else{
+            saveApiId.addEventListener("click",async ()=>{
+    
+                apiKey=document.getElementById("apikey").value;
+                localStorage.setItem('apiKey', apiKey);
+                apiElements.classList.add("hidden");
+                memeFeed.classList.remove("hidden");
+
+                const data = await getMemes(apiKey);
+                localStorage.setItem('memeInfo', JSON.stringify(data));
+
+                saveDataToFile(data);
+        });
+    }
+}
+
+window.addEventListener("load",()=>{
+    randerMemes();
+});

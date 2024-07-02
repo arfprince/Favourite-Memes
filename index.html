@@ -87,11 +87,11 @@
           </div>
           <!--lower part ir ride side-->
           <div id="rightlower" class="h-[100vh] overflow-auto text-center p-4">         
-            <div class="flex flex-col items-center gap-3">
+            <div id="apiElements" class="flex flex-col items-center gap-3">
 
               <p class="font-semibold text-slate-600">You need an API key to get the memes feed.</p>
 
-              <button class="h-12 w-40 rounded-full bg-teal-400 font-semibold text-black" onclick="my_modal_3.showModal()">Set API Key</button>
+              <button id="setApiId" class="h-12 w-40 rounded-full bg-teal-400 font-semibold text-black" onclick="my_modal_3.showModal()">Set API Key</button>
               <dialog id="my_modal_3" class="modal">
                 <div class="modal-box">
                   <form method="dialog">
@@ -100,11 +100,15 @@
                   <h3 class="text-lg font-bold">Set your API key!</h3>
                   <p class="py-4">Press ESC key or click outside to close</p>
                   <div class="flex flex-col gap-4">
-                    <input type="text" name="" id="" class="h-10 w-full rounded-full focus:outline-none focus:outline-teal-500 focus:outline-ring-6 border-2">
-                    <button class="h-10 w-full bg-teal-500 rounded-full font-semibold text-black">Save API key in Browser</button>
+                    <input type="text" name="" id="apikey" class="h-10 w-full rounded-full focus:outline-none focus:outline-teal-500 focus:outline-ring-6 border-2">
+                    <button id="saveApiId" class="h-10 w-full bg-teal-500 rounded-full font-semibold text-black">Save API key in Browser</button>
                   </div>
                 </div>
               </dialog>
+            </div>
+
+            <div id="memeFeed" class="hidden">
+              <p class="text-xl font-semibold text-left"> Meme Feed ... </p>
             </div>
           </div>
         </div>
