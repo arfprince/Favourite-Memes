@@ -1,6 +1,4 @@
 import './style.css';
-const axios = require('axios');
-const fs = require('fs');
 
 const tDark = document.querySelector("#dark");
 const tDefault = document.querySelector("#default");
@@ -17,6 +15,10 @@ const tLemonade = document.querySelector("#lemonade");
 const saveApiId=document.querySelector("#saveApiId");
 const apiElements=document.querySelector("#apiElements");
 const memeFeed=document.querySelector("#memeFeed");
+const badResponseMsg=document.querySelector("#badResponseMsg");
+const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
+let apiKey=localStorage.getItem('apiKey');
+
 
 let startTheme=localStorage.getItem('theme');
 if(!startTheme) {
@@ -113,43 +115,50 @@ function themeChanging() {
 }
 themeChanging();
 
-async function getMemes(apiKey) {
-    const res = await fetch(apiKey);
-    const data = await res.json();
-    return data.products;
+function buildMemesFeed(memes) {
+    
 }
 
-function saveDataToFile(data) {
-    fs.writeFile("db.json", JSON.stringify(data), (err) => {
-        if (err) {
-            console.error('Error writing to JSON file:', err);
-        } else {
-            console.log(`Data saved to db.json`);
-        }
-    });
-}
-
-let apiKey=localStorage.getItem('apiKey');
 async function randerMemes() {
-    if(apiKey){
+    if(apiKey)
+    {
         apiElements.classList.add("hidden");
         memeFeed.classList.remove("hidden");
 
-        let data = localStorage.getItem('memeInfo');
-        data = JSON.parse(data);
+        const res = await fetch("/mock/mocked_search_meme_result.json");
+        const data = await res.json();
+        console.log(data.memes);
+    }
+    else
+    {
+        saveApiId.addEventListener("click",async ()=>{
 
-    }else{
-            saveApiId.addEventListener("click",async ()=>{
-    
-                apiKey=document.getElementById("apikey").value;
-                localStorage.setItem('apiKey', apiKey);
-                apiElements.classList.add("hidden");
-                memeFeed.classList.remove("hidden");
+            apiKey=document.getElementById("apikey").value;
+            const url=`${baseUrl}${apiKey}`;
+            try {
+                const res = await fetch(url);
+                console.log(res.ok);
+                if(!res.ok){
+                    const errorMsg = await res.json();
+                    throw new Error(errorMsg.message);
+                }else{
+                    const data = await res.json();
+                    localStorage.setItem('apiKey', apiKey);
+                    apiElements.classList.add("hidden");
+                    memeFeed.classList.remove("hidden");
 
-                const data = await getMemes(apiKey);
-                localStorage.setItem('memeInfo', JSON.stringify(data));
 
-                saveDataToFile(data);
+                    //  buildMemesFeed(data.products);
+                    localStorage.setItem('memeInfo', JSON.stringify(data));
+                }
+                
+            } catch (error) {
+                badResponseMsg.innerText=error;
+                badResponseMsg.classList.remove("hidden");
+                localStorage.setItem('errorMessage',error.message);
+            }
+
+           
         });
     }
 }

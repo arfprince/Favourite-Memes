@@ -86,7 +86,8 @@
               </div>
           </div>
           <!--lower part ir ride side-->
-          <div id="rightlower" class="h-[100vh] overflow-auto text-center p-4">         
+          <div id="rightlower" class="h-[100vh] overflow-auto text-center p-4">  
+            <!--modal-->       
             <div id="apiElements" class="flex flex-col items-center gap-3">
 
               <p class="font-semibold text-slate-600">You need an API key to get the memes feed.</p>
@@ -98,11 +99,12 @@
                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                   </form>
                   <h3 class="text-lg font-bold">Set your API key!</h3>
-                  <p class="py-4">Press ESC key or click outside to close</p>
+                  <p class="py-4 text-start text-[12px]">Please set your own API key below(thats needs to be set only once in your browser) Find your own key here: <a href="https://humorapi.com/console/#Profile" target="_blank" class="underline">https://humorapi.com/console/#Profile</a> </p>
                   <div class="flex flex-col gap-4">
                     <input type="text" name="" id="apikey" class="h-10 w-full rounded-full focus:outline-none focus:outline-teal-500 focus:outline-ring-6 border-2">
                     <button id="saveApiId" class="h-10 w-full bg-teal-500 rounded-full font-semibold text-black">Save API key in Browser</button>
                   </div>
+                  <p id="badResponseMsg" class="hidden pt-2 text-red-500 text-[11px]"></p>
                 </div>
               </dialog>
             </div>
