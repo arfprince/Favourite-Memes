@@ -22,7 +22,37 @@ const savedMemeCollectionInSideBar=document.querySelector("#savedMemeCollectionI
 
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
+let savedMemes=localStorage.getItem('savedMemes');
 
+function displayAllSavedMemes(savesMemes){
+    savedMemeCollection.innerHTML="";
+    savedMemeCollectionInSideBar.innerHTML="";
+    for (let id in savedMemes) {
+        if (savedMemes.hasOwnProperty(id)) {
+            const meme = savedMemes[id];
+            
+            const newSpan2=document.createElement("span");
+            newSpan2.innerHTML=`<div class="flex items-center justify-center gap-5">
+                <img class="h-10 w-10" src="${meme.url}" alt="">
+                <p>${meme.description}</p>
+            </div>`;
+            savedMemeCollection.appendChild(newSpan2);
+
+            const listItem=document.createElement("li");
+            listItem.innerHTML=`<div class="flex items-center justify-center gap-3">
+            <img class="h-10 w-10" src="${meme.url}" alt="">
+            <p>${meme.description}</p>
+            </div>`;
+            savedMemeCollectionInSideBar.appendChild(listItem);
+        }
+    }
+}
+if(!savedMemes){
+    savedMemes = {};
+}else{
+    savedMemes=JSON.parse(savedMemes);
+    displayAllSavedMemes(savedMemes);
+}
 
 let startTheme=localStorage.getItem('theme');
 if(!startTheme) {
@@ -122,7 +152,6 @@ themeChanging();
 function buildMemesFeed(memes) {
     for(let i=0;i<memes.length;i++)
     {
-        console.log(memes[i].url);
         let newSpan=document.createElement("span");
         newSpan.innerHTML=`<img src="${memes[i].url}" alt="" class=" h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer">
                   <span id="favouriteBtn" class="absolute top-4 right-4">
@@ -132,29 +161,20 @@ function buildMemesFeed(memes) {
         newSpan.querySelector("#favouriteBtn").appendChild(button);
 
         button.addEventListener("click",()=>{
-            console.log("clcked");
             button.classList.remove("heart");
             button.classList.add("heart2");
+            
+            if(!savedMemes[memes[i].id])
+            {
+                console.log("yes");
+                savedMemes[memes[i].id] = {url: memes[i].url, description: memes[i].description};
+                localStorage.setItem('savedMemes',JSON.stringify(savedMemes));
 
-            const newSpan2=document.createElement("span");
-            newSpan2.innerHTML=`<div class="flex items-center justify-center gap-5">
-                <img class="h-10 w-10" src="${memes[i].url}" alt="">
-                <p>inter</p>
-              </div>`;
-            savedMemeCollection.appendChild(newSpan2);
-
-            const listItem=document.createElement("li");
-            listItem.innerHTML=`<div class="flex items-center justify-center gap-5">
-              <img class="h-10 w-10" src="${memes[i].url}" alt="">
-              <p>inter</p>
-            </div>`;
-            savedMemeCollectionInSideBar.appendChild(listItem);
-
+                displayAllSavedMemes(savedMemes);
+            }
         });
-
         newSpan.classList.add("relative");
         memeFeedImg.appendChild(newSpan);
-        
     }
 }
 function shuffleArray(array) {
@@ -175,7 +195,6 @@ async function randerMemes() {
 
         const res = await fetch("/mock/mocked_search_meme_result.json");
         const data = await res.json();
-        console.log(data.memes);
         buildMemesFeed(shuffleArray(data.memes));
     }
     else
@@ -186,7 +205,6 @@ async function randerMemes() {
             const url=`${baseUrl}${apiKey}`;
             try {
                 const res = await fetch(url);
-                console.log(res.ok);
                 if(!res.ok){
                     const errorMsg = await res.json();
                     throw new Error(errorMsg.message);
@@ -196,7 +214,7 @@ async function randerMemes() {
                     memeFeed.classList.remove("hidden");
 
                     localStorage.setItem('apiKey', apiKey);
-                    localStorage.setItem('memeInfo', JSON.stringify(data));
+                    // localStorage.setItem('memeInfo', JSON.stringify(data));
                     buildMemesFeed(shuffleArray(data.memes));
                 }
             } catch (error) {

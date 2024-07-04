@@ -27,15 +27,15 @@
 }
 
 .heart2 {
-  @apply relative w-[25px] h-[25px] bg-purple-500 bg-opacity-50 cursor-pointer transform rotate-[-45deg] border-red-500 ;
+  @apply relative w-[25px] h-[25px] bg-green-400 bg-opacity-50 cursor-pointer transform rotate-[-45deg] border-red-500 ;
 }
 .heart2:before, .heart2:after {
   content: "";
   @apply absolute w-[25px] h-[25px] rounded-full;
 }
 .heart2:before {
-  @apply top-[-10px] left-0 bg-purple-500 bg-opacity-50;
+  @apply top-[-10px] left-0 bg-green-400 bg-opacity-50;
 }
 .heart2:after {
-  @apply left-[10px] top-0 bg-purple-500 bg-opacity-50;
+  @apply left-[10px] top-0 bg-green-400 bg-opacity-50;
 }
