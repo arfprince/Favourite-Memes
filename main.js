@@ -135,7 +135,16 @@ function buildMemesFeed(memes) {
         memeFeedImg.appendChild(newSpan);
     }
 }
-
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) { 
+        // Generate random number 
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+ }
 async function randerMemes() {
     if(apiKey)
     {
@@ -145,7 +154,7 @@ async function randerMemes() {
         const res = await fetch("/mock/mocked_search_meme_result.json");
         const data = await res.json();
         console.log(data.memes);
-        buildMemesFeed(data.memes);
+        buildMemesFeed(shuffleArray(data.memes));
     }
     else
     {
@@ -166,7 +175,7 @@ async function randerMemes() {
 
                     localStorage.setItem('apiKey', apiKey);
                     localStorage.setItem('memeInfo', JSON.stringify(data));
-                    buildMemesFeed(data.memes);
+                    buildMemesFeed(shuffleArray(data.memes));
                 }
             } catch (error) {
                 badResponseMsg.innerText=error;
