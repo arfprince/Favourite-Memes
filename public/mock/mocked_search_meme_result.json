@@ -1,0 +1,68 @@
+{
+    "memes": [
+        {
+            "id": 984110,
+            "description": "God mode !!",
+            "url": "https://i.redd.it/19nzqatdf1ad1.jpeg",
+            "type": "image/jpeg",
+            "width": 1080,
+            "height": 1080,
+            "ratio": 1.0
+        },
+        {
+            "id": 984112,
+            "description": "You think my mom can tell?",
+            "url": "https://i.redd.it/29ammy3181ad1.jpeg",
+            "type": "image/jpeg",
+            "width": 713,
+            "height": 751,
+            "ratio": 0.9494007989347537
+        },
+        {
+            "id": 984114,
+            "description": "So true.",
+            "url": "https://i.redd.it/1mkf967p11ad1.jpeg",
+            "type": "image/jpeg",
+            "width": 808,
+            "height": 1331,
+            "ratio": 0.6070623591284748
+        },
+        {
+            "id": 984116,
+            "description": "This is how I bought a set of xiangqi(chinese chess) on AliExpress.",
+            "url": "https://i.redd.it/4bmadegxr0ad1.jpeg",
+            "type": "image/jpeg",
+            "width": 640,
+            "height": 821,
+            "ratio": 0.7795371498172959
+        },
+        {
+            "id": 984118,
+            "description": "Why do they put it there.? ",
+            "url": "https://i.redd.it/sno2qvmar0ad1.jpeg",
+            "type": "image/jpeg",
+            "width": 1280,
+            "height": 1011,
+            "ratio": 1.2660731948565775
+        },
+        {
+            "id": 984120,
+            "description": "No idea if anyone agrees with me",
+            "url": "https://i.redd.it/ck62kcslm0ad1.jpeg",
+            "type": "image/jpeg",
+            "width": 949,
+            "height": 1200,
+            "ratio": 0.7908333333333334
+        },
+        {
+            "id": 984122,
+            "description": "You heard the man",
+            "url": "https://i.redd.it/qk2m7tsrl0ad1.gif",
+            "type": "image/gif",
+            "width": 360,
+            "height": 301,
+            "ratio": 1.196013289036545
+        }
+    ],
+    "available": 0
+}

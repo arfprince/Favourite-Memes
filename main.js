@@ -15,9 +15,16 @@ const tLemonade = document.querySelector("#lemonade");
 const saveApiId=document.querySelector("#saveApiId");
 const apiElements=document.querySelector("#apiElements");
 const memeFeed=document.querySelector("#memeFeed");
+const memeFeedImg=document.querySelector("#memeFeedImg");
 const badResponseMsg=document.querySelector("#badResponseMsg");
+
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
+
+// heartBtn.addEventListener("click",()=>{
+//     heartBtn.classList.remove("heart");
+//     heartBtn.classList.add("heart2");
+// });
 
 
 let startTheme=localStorage.getItem('theme');
@@ -116,7 +123,17 @@ function themeChanging() {
 themeChanging();
 
 function buildMemesFeed(memes) {
-    
+    for(let i=0;i<memes.length;i++)
+    {
+        console.log(memes[i].url);
+        let newSpan=document.createElement("span");
+        newSpan.innerHTML=`<img src="${memes[i].url}" alt="" class=" h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer">
+                  <span class="absolute top-3 right-3">
+                    <button id="heartBtn" class="heart"></button>
+                  </span>`;
+        newSpan.classList.add("relative");
+        memeFeedImg.appendChild(newSpan);
+    }
 }
 
 async function randerMemes() {
@@ -128,6 +145,7 @@ async function randerMemes() {
         const res = await fetch("/mock/mocked_search_meme_result.json");
         const data = await res.json();
         console.log(data.memes);
+        buildMemesFeed(data.memes);
     }
     else
     {
@@ -143,22 +161,18 @@ async function randerMemes() {
                     throw new Error(errorMsg.message);
                 }else{
                     const data = await res.json();
-                    localStorage.setItem('apiKey', apiKey);
                     apiElements.classList.add("hidden");
                     memeFeed.classList.remove("hidden");
 
-
-                    //  buildMemesFeed(data.products);
+                    localStorage.setItem('apiKey', apiKey);
                     localStorage.setItem('memeInfo', JSON.stringify(data));
+                    buildMemesFeed(data.memes);
                 }
-                
             } catch (error) {
                 badResponseMsg.innerText=error;
                 badResponseMsg.classList.remove("hidden");
-                localStorage.setItem('errorMessage',error.message);
+                localStorage.setItem('errorMessage',error);
             }
-
-           
         });
     }
 }

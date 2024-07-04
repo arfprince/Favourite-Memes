@@ -42,7 +42,7 @@
                     <svg class="rounded-lg absolute left-3 top-2 max-sm:h-7 max-sm:w-7 max-sm:left-0 max-sm:top-0" viewBox="0 0 1920 1920" fill="none" xmlns="http://www.w3.org/2000/svg" id="Purple-Blue-Green-Yellow-Orange-Blurry-Ellipses--Streamline-Gradient-Bg" height="18" width="18" stroke-width="1"><desc>Purple Blue Green Yellow Orange Blurry Ellipses Streamline Element: https://streamlinehq.com</desc><g clip-path="url(#clip0_121_37)"><path fill="black" d="M0 0h1920v1920H0Z"></path><g filter="url(#filter0_f_121_37)"><path fill="#614CF3" d="M-627.84 122.513a1049.17 922.217 0 1 0 2098.34 0 1049.17 922.217 0 1 0-2098.34 0"></path></g><g filter="url(#filter1_f_121_37)"><path fill="#0038FF" d="M966.394 83.9955a794.776 651.157 0 1 0 1589.552 0 794.776 651.157 0 1 0-1589.552 0"></path></g><g filter="url(#filter2_f_121_37)"><path fill="#6DE5FF" d="M762 1296a785 762 0 1 0 1570 0 785 762 0 1 0-1570 0"></path></g><g filter="url(#filter3_f_121_37)"><path fill="#FFCB13" d="M-327 1770.81a957.066 656.814 0 1 0 1914.132 0 957.066 656.814 0 1 0-1914.132 0"></path></g><g filter="url(#filter4_f_121_37)"><path fill="#FF7449" d="M-1183.796 840.867a779.106 773.499 0 1 0 1558.212 0 779.106 773.499 0 1 0-1558.212 0"></path></g></g><defs><filter id="filter0_f_121_37" x="-1427.84" y="-1599.7" width="3698.34" height="3444.43" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="400" result="effect1_foregroundBlur_121_37"></feGaussianBlur></filter><filter id="filter1_f_121_37" x="166.391" y="-1367.16" width="3189.55" height="2902.31" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="400" result="effect1_foregroundBlur_121_37"></feGaussianBlur></filter><filter id="filter2_f_121_37" x="-38" y="-266" width="3170" height="3124" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="400" result="effect1_foregroundBlur_121_37"></feGaussianBlur></filter><filter id="filter3_f_121_37" x="-1127" y="314" width="3514.13" height="2913.63" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="400" result="effect1_foregroundBlur_121_37"></feGaussianBlur></filter><filter id="filter4_f_121_37" x="-1983.8" y="-732.632" width="3158.21" height="3147" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend><feGaussianBlur stdDeviation="400" result="effect1_foregroundBlur_121_37"></feGaussianBlur></filter><clipPath id="clip0_121_37"><path fill="white" d="M0 0h1920v1920H0Z"></path></clipPath></defs></svg>
                     <svg class="absolute right-2 max-sm:hidden" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/></svg>
                   </div>
-                  <ul tabindex="0" class="dropdown-content menu bg-red-50 text-slate-800 font-semibold rounded-xl w-32 p-2 shadow">
+                  <ul tabindex="0" class="dropdown-content menu bg-red-50 text-slate-800 font-semibold rounded-xl w-32 p-2 shadow z-10">
                     <li><button id="default">Default</button></li>
                     <li><button id="dark">Dark</button></li>
                     <li><button id="valentine">Valentine</button></li>
@@ -89,9 +89,7 @@
           <div id="rightlower" class="h-[100vh] overflow-auto text-center p-4">  
             <!--modal-->       
             <div id="apiElements" class="flex flex-col items-center gap-3">
-
               <p class="font-semibold text-slate-600">You need an API key to get the memes feed.</p>
-
               <button id="setApiId" class="h-12 w-40 rounded-full bg-teal-400 font-semibold text-black" onclick="my_modal_3.showModal()">Set API Key</button>
               <dialog id="my_modal_3" class="modal">
                 <div class="modal-box">
@@ -108,9 +106,18 @@
                 </div>
               </dialog>
             </div>
-
+            <!--feed-->
             <div id="memeFeed" class="hidden">
               <p class="text-xl font-semibold text-left"> Meme Feed ... </p>
+              <br><br>
+              <div id="memeFeedImg" class="flex flex-wrap items-center justify-center gap-5">
+                <!-- <span class="relative">
+                  <img src="https://i.redd.it/19nzqatdf1ad1.jpeg" alt="" class=" h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer">
+                  <span class="absolute top-3 right-3">
+                    <button id="heartBtn" class="heart"></button>
+                  </span>
+                </span> -->
+              </div>
             </div>
           </div>
         </div>
