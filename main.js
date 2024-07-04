@@ -17,14 +17,11 @@ const apiElements=document.querySelector("#apiElements");
 const memeFeed=document.querySelector("#memeFeed");
 const memeFeedImg=document.querySelector("#memeFeedImg");
 const badResponseMsg=document.querySelector("#badResponseMsg");
+const savedMemeCollection=document.querySelector("#savedMemeCollection");
+const savedMemeCollectionInSideBar=document.querySelector("#savedMemeCollectionInSideBar");
 
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
-
-// heartBtn.addEventListener("click",()=>{
-//     heartBtn.classList.remove("heart");
-//     heartBtn.classList.add("heart2");
-// });
 
 
 let startTheme=localStorage.getItem('theme');
@@ -128,11 +125,36 @@ function buildMemesFeed(memes) {
         console.log(memes[i].url);
         let newSpan=document.createElement("span");
         newSpan.innerHTML=`<img src="${memes[i].url}" alt="" class=" h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer">
-                  <span class="absolute top-3 right-3">
-                    <button id="heartBtn" class="heart"></button>
+                  <span id="favouriteBtn" class="absolute top-4 right-4">
                   </span>`;
+        const button=document.createElement("button");
+        button.classList.add("heart");
+        newSpan.querySelector("#favouriteBtn").appendChild(button);
+
+        button.addEventListener("click",()=>{
+            console.log("clcked");
+            button.classList.remove("heart");
+            button.classList.add("heart2");
+
+            const newSpan2=document.createElement("span");
+            newSpan2.innerHTML=`<div class="flex items-center justify-center gap-5">
+                <img class="h-10 w-10" src="${memes[i].url}" alt="">
+                <p>inter</p>
+              </div>`;
+            savedMemeCollection.appendChild(newSpan2);
+
+            const listItem=document.createElement("li");
+            listItem.innerHTML=`<div class="flex items-center justify-center gap-5">
+              <img class="h-10 w-10" src="${memes[i].url}" alt="">
+              <p>inter</p>
+            </div>`;
+            savedMemeCollectionInSideBar.appendChild(listItem);
+
+        });
+
         newSpan.classList.add("relative");
         memeFeedImg.appendChild(newSpan);
+        
     }
 }
 function shuffleArray(array) {
