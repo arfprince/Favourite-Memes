@@ -156,24 +156,55 @@ if(!savedMemes){
 function buildMemesFeed(memes) {
     for(let i=0;i<memes.length;i++)
     {
-        let newSpan=document.createElement("span");
-        newSpan.innerHTML=`<img src="${memes[i].url}" alt="" class=" h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer">
-                  <span id="favouriteBtn" class="absolute top-4 right-4">
-                  </span>`;
+        let newSpan = document.createElement("div");
+        let memei=memes[i];
+        console.log(memei, memei.url);
+        // Create an img element
+        let img = document.createElement("img");
+        
+        img.alt = "";
+        img.className = "h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer";
+
+        // Create the favourite button span
+        let favouriteBtn = document.createElement("span");
+        favouriteBtn.id = "favouriteBtn";
+        favouriteBtn.className = "absolute top-4 right-4";
+
+        // Append the img and favouriteBtn to the new span element
+        newSpan.appendChild(img);
+        try {
+            img.setAttribute("src",memei.url);
+        } catch (error) {
+            console.log(error);
+        }
+        newSpan.appendChild(favouriteBtn);
         const button=document.createElement("button");
         button.classList.add("heart");
         newSpan.querySelector("#favouriteBtn").appendChild(button);
 
+        const favouriteMemeSaveModalActiveBtn=document.querySelector("#favouriteMemeSaveModalActiveBtn");
+        const favouriteMemeSaveModal=document.querySelector("#favouriteMemeSaveModal");
+        const favouriteMemeSaveBtn=document.querySelector("#favouriteMemeSaveBtn");
+        const favouriteMemeSaveInput=document.querySelector("#favouriteMemeSaveInput");
+        const favouriteMemeSaveModalCloseBtn=document.querySelector("#favouriteMemeSaveModalCloseBtn");
+
         button.addEventListener("click",()=>{
+            
             button.classList.remove("heart");
             button.classList.add("heart2");
-            const name=prompt("Tell us by what you want to save your favoutite meme!");
             if(!savedMemes[memes[i].id])
             {
-                savedMemes[memes[i].id] = {url: memes[i].url, description: name};
-                localStorage.setItem('savedMemes',JSON.stringify(savedMemes));
-
-                displayAllSavedMemes(savedMemes);
+                favouriteMemeSaveModalActiveBtn.click();
+                let name="";
+                favouriteMemeSaveBtn.addEventListener("click",()=>{
+                    name=favouriteMemeSaveInput.value; 
+                    console.log(name);
+                    savedMemes[memes[i].id] = {url: memes[i].url, description: name ? name : memes[i].description};
+                    localStorage.setItem('savedMemes',JSON.stringify(savedMemes));
+                    displayAllSavedMemes(savedMemes);
+                    favouriteMemeSaveModalCloseBtn.click();
+                });
+                
             }
         });
         newSpan.classList.add("relative");
@@ -207,7 +238,7 @@ async function randerMemes() {
             apiKey=document.getElementById("apikey").value;
             const url=`${baseUrl}${apiKey}`;
             try {
-                const res = await fetch(url);
+                const res = await fetch("/mock/mocked_search_meme_result.json");
                 if(!res.ok){
                     const errorMsg = await res.json();
                     throw new Error(errorMsg.message);
@@ -218,7 +249,7 @@ async function randerMemes() {
 
                     localStorage.setItem('apiKey', apiKey);
                     // localStorage.setItem('memeInfo', JSON.stringify(data));
-                    buildMemesFeed(shuffleArray(data.memes));
+                    buildMemesFeed(([...data.memes]));
                 }
             } catch (error) {
                 badResponseMsg.innerText=error;
