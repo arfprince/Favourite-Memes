@@ -167,10 +167,10 @@ function buildMemesFeed(memes) {
         button.addEventListener("click",()=>{
             button.classList.remove("heart");
             button.classList.add("heart2");
-            
+            const name=prompt("Tell us by what you want to save your favoutite meme!");
             if(!savedMemes[memes[i].id])
             {
-                savedMemes[memes[i].id] = {url: memes[i].url, description: memes[i].description};
+                savedMemes[memes[i].id] = {url: memes[i].url, description: name};
                 localStorage.setItem('savedMemes',JSON.stringify(savedMemes));
 
                 displayAllSavedMemes(savedMemes);
