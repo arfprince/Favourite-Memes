@@ -13,6 +13,7 @@ const tCoffee = document.querySelector("#coffee");
 const tDim = document.querySelector("#dim");
 const tLemonade = document.querySelector("#lemonade");
 const saveApiId=document.querySelector("#saveApiId");
+const setApiId=document.querySelector("#setApiId");
 const apiElements=document.querySelector("#apiElements");
 const memeFeed=document.querySelector("#memeFeed");
 const memeFeedImg=document.querySelector("#memeFeedImg");
@@ -230,13 +231,16 @@ async function randerMemes() {
 
 let typingTimer;
 searchMemes.addEventListener("input",(e)=>{
+
     searchIcon.classList.add("hidden");
     clearTimeout(typingTimer);
     typingTimer = setTimeout(()=>{
         if(e.target.value.length<1){
             searchIcon.classList.remove("hidden");
         }else if(e.target.value.length>1 && e.target.value.length<101){
-            console.log(e.target.value);
+            if(!apiKey){
+                setApiId.click();
+            }
             warningMsg.classList.add("hidden");
         }else if(e.target.value.length<2){
             warningMsg.innerText="at least 2 characters required";
