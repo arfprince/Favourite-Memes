@@ -19,42 +19,15 @@ const memeFeedImg=document.querySelector("#memeFeedImg");
 const badResponseMsg=document.querySelector("#badResponseMsg");
 const savedMemeCollection=document.querySelector("#savedMemeCollection");
 const savedMemeCollectionInSideBar=document.querySelector("#savedMemeCollectionInSideBar");
+const searchMemes=document.querySelector("#searchMemes");
+const searchIcon=document.querySelector("#searchIcon");
+const warningMsg=document.querySelector("#warningMsg");
 
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
 let savedMemes=localStorage.getItem('savedMemes');
-
-function displayAllSavedMemes(savesMemes){
-    savedMemeCollection.innerHTML="";
-    savedMemeCollectionInSideBar.innerHTML="";
-    for (let id in savedMemes) {
-        if (savedMemes.hasOwnProperty(id)) {
-            const meme = savedMemes[id];
-            
-            const newSpan2=document.createElement("span");
-            newSpan2.innerHTML=`<div class="flex items-center justify-center gap-5">
-                <img class="h-10 w-10" src="${meme.url}" alt="">
-                <p>${meme.description}</p>
-            </div>`;
-            savedMemeCollection.appendChild(newSpan2);
-
-            const listItem=document.createElement("li");
-            listItem.innerHTML=`<div class="flex items-center justify-center gap-3">
-            <img class="h-10 w-10" src="${meme.url}" alt="">
-            <p>${meme.description}</p>
-            </div>`;
-            savedMemeCollectionInSideBar.appendChild(listItem);
-        }
-    }
-}
-if(!savedMemes){
-    savedMemes = {};
-}else{
-    savedMemes=JSON.parse(savedMemes);
-    displayAllSavedMemes(savedMemes);
-}
-
 let startTheme=localStorage.getItem('theme');
+
 if(!startTheme) {
     localStorage.setItem('theme','light');
 }else{
@@ -149,6 +122,36 @@ function themeChanging() {
 }
 themeChanging();
 
+function displayAllSavedMemes(savesMemes){
+    savedMemeCollection.innerHTML="";
+    savedMemeCollectionInSideBar.innerHTML="";
+    for (let id in savedMemes) {
+        if (savedMemes.hasOwnProperty(id)) {
+            const meme = savedMemes[id];
+            
+            const newSpan=document.createElement("span");
+            newSpan.innerHTML=`<div class="flex items-center justify-center gap-5">
+                <img class="h-10 w-10" src="${meme.url}" alt="">
+                <p>${meme.description}</p>
+            </div>`;
+            savedMemeCollection.appendChild(newSpan);
+
+            const listItem=document.createElement("li");
+            listItem.innerHTML=`<div class="flex items-center justify-center gap-3">
+            <img class="h-10 w-10" src="${meme.url}" alt="">
+            <p>${meme.description}</p>
+            </div>`;
+            savedMemeCollectionInSideBar.appendChild(listItem);
+        }
+    }
+}
+if(!savedMemes){
+    savedMemes = {};
+}else{
+    savedMemes=JSON.parse(savedMemes);
+    displayAllSavedMemes(savedMemes);
+}
+
 function buildMemesFeed(memes) {
     for(let i=0;i<memes.length;i++)
     {
@@ -166,7 +169,6 @@ function buildMemesFeed(memes) {
             
             if(!savedMemes[memes[i].id])
             {
-                console.log("yes");
                 savedMemes[memes[i].id] = {url: memes[i].url, description: memes[i].description};
                 localStorage.setItem('savedMemes',JSON.stringify(savedMemes));
 
@@ -225,6 +227,27 @@ async function randerMemes() {
         });
     }
 }
+
+let typingTimer;
+searchMemes.addEventListener("input",(e)=>{
+    searchIcon.classList.add("hidden");
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(()=>{
+        if(e.target.value.length<1){
+            searchIcon.classList.remove("hidden");
+        }else if(e.target.value.length>1 && e.target.value.length<101){
+            console.log(e.target.value);
+            warningMsg.classList.add("hidden");
+        }else if(e.target.value.length<2){
+            warningMsg.innerText="at least 2 characters required";
+            warningMsg.classList.remove("hidden");
+        }else{
+            warningMsg.innerText="at most 100 characters";
+            warningMsg.classList.remove("hidden");
+        }
+
+    }, "1000");
+});
 
 window.addEventListener("load",()=>{
     randerMemes();
