@@ -154,63 +154,62 @@ if(!savedMemes){
 }
 
 function buildMemesFeed(memes) {
-    for(let i=0;i<memes.length;i++)
-    {
+    for (let i = 0; i < memes.length; i++) {
         let newSpan = document.createElement("div");
-        let memei=memes[i];
-        console.log(memei, memei.url);
-        // Create an img element
+        let memei = memes[i];
         let img = document.createElement("img");
-        
         img.alt = "";
+        img.src = memei.url;
         img.className = "h-80 w-80 rounded-lg hover:scale-x-105 hover:scale-y-105 cursor-pointer";
+        newSpan.appendChild(img);
 
-        // Create the favourite button span
         let favouriteBtn = document.createElement("span");
         favouriteBtn.id = "favouriteBtn";
         favouriteBtn.className = "absolute top-4 right-4";
-
-        // Append the img and favouriteBtn to the new span element
-        newSpan.appendChild(img);
-        try {
-            img.setAttribute("src",memei.url);
-        } catch (error) {
-            console.log(error);
-        }
-        newSpan.appendChild(favouriteBtn);
-        const button=document.createElement("button");
+        const button = document.createElement("button");
         button.classList.add("heart");
-        newSpan.querySelector("#favouriteBtn").appendChild(button);
+        favouriteBtn.appendChild(button);
+        newSpan.appendChild(favouriteBtn);
 
-        const favouriteMemeSaveModalActiveBtn=document.querySelector("#favouriteMemeSaveModalActiveBtn");
-        const favouriteMemeSaveModal=document.querySelector("#favouriteMemeSaveModal");
-        const favouriteMemeSaveBtn=document.querySelector("#favouriteMemeSaveBtn");
-        const favouriteMemeSaveInput=document.querySelector("#favouriteMemeSaveInput");
-        const favouriteMemeSaveModalCloseBtn=document.querySelector("#favouriteMemeSaveModalCloseBtn");
-
-        button.addEventListener("click",()=>{
-            
+        button.addEventListener("click", () => {
             button.classList.remove("heart");
             button.classList.add("heart2");
-            if(!savedMemes[memes[i].id])
-            {
+
+            if (!savedMemes[memes[i].id]) {
+                const favouriteMemeSaveModalActiveBtn = document.querySelector("#favouriteMemeSaveModalActiveBtn");
+                const favouriteMemeSaveModal = document.querySelector("#favouriteMemeSaveModal");
+                const favouriteMemeSaveBtn = document.querySelector("#favouriteMemeSaveBtn");
+                const favouriteMemeSaveInput = document.querySelector("#favouriteMemeSaveInput");
+                const favouriteMemeSaveModalCloseBtn = document.querySelector("#favouriteMemeSaveModalCloseBtn");
+
                 favouriteMemeSaveModalActiveBtn.click();
-                let name="";
-                favouriteMemeSaveBtn.addEventListener("click",()=>{
-                    name=favouriteMemeSaveInput.value; 
-                    console.log(name);
-                    savedMemes[memes[i].id] = {url: memes[i].url, description: name ? name : memes[i].description};
-                    localStorage.setItem('savedMemes',JSON.stringify(savedMemes));
+        
+                const saveMemeHandler = () => {
+                    
+                    let name = favouriteMemeSaveInput.value;
+                    savedMemes[memes[i].id] = {
+                        url: memes[i].url,
+                        description: name ? name : memes[i].description
+                    };
+
+                    localStorage.setItem('savedMemes', JSON.stringify(savedMemes));
                     displayAllSavedMemes(savedMemes);
+
                     favouriteMemeSaveModalCloseBtn.click();
-                });
+                    my_modal_5.close();
+
+                    favouriteMemeSaveBtn.removeEventListener("click", saveMemeHandler);
+                };
                 
+                favouriteMemeSaveBtn.addEventListener("click", saveMemeHandler);
             }
         });
+
         newSpan.classList.add("relative");
         memeFeedImg.appendChild(newSpan);
     }
 }
+
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) { 
         // Generate random number 
@@ -225,6 +224,7 @@ async function randerMemes() {
     if(apiKey)
     {
         apiElements.classList.add("hidden");
+        my_modal_3.close();
         memeFeed.classList.remove("hidden");
 
         const res = await fetch("/mock/mocked_search_meme_result.json");
@@ -238,17 +238,18 @@ async function randerMemes() {
             apiKey=document.getElementById("apikey").value;
             const url=`${baseUrl}${apiKey}`;
             try {
-                const res = await fetch("/mock/mocked_search_meme_result.json");
+                const res = await fetch(url);
                 if(!res.ok){
                     const errorMsg = await res.json();
                     throw new Error(errorMsg.message);
                 }else{
                     const data = await res.json();
                     apiElements.classList.add("hidden");
+                    my_modal_3.close();
                     memeFeed.classList.remove("hidden");
 
                     localStorage.setItem('apiKey', apiKey);
-                    // localStorage.setItem('memeInfo', JSON.stringify(data));
+                    localStorage.setItem('memeInfo', JSON.stringify(data));
                     buildMemesFeed(([...data.memes]));
                 }
             } catch (error) {
