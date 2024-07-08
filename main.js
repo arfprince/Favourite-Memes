@@ -29,17 +29,26 @@ let apiKey=localStorage.getItem('apiKey');
 let savedMemes=localStorage.getItem('savedMemes');
 let startTheme=localStorage.getItem('theme');
 
+function urlChange(theme) {
+    const siteUrl = new URL(window.location);
+    siteUrl.searchParams.set('theme', theme);
+    window.history.replaceState({}, '', siteUrl);
+}
 if(!startTheme) {
     localStorage.setItem('theme','light');
+    urlChange('light');
 }else{
     document.documentElement.setAttribute("data-theme", startTheme);
+    urlChange(startTheme);
 }
+
 function themeChanging() {
     tDark.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='dark'){
             document.documentElement.setAttribute("data-theme", "dark");
             localStorage.setItem('theme','dark');
+            urlChange('dark');
         }
     });
     tDefault.addEventListener("click", () => {
@@ -47,6 +56,7 @@ function themeChanging() {
         if(curTheme!=="light"){
             document.documentElement.setAttribute("data-theme", "light");
             localStorage.setItem('theme','light');
+            urlChange('light');
         }
     });
     tValentine.addEventListener("click", () => {
@@ -54,6 +64,7 @@ function themeChanging() {
         if(curTheme!=='valentine'){
             document.documentElement.setAttribute("data-theme", "valentine");
             localStorage.setItem('theme','valentine');
+            urlChange('valentine');
         }
     });
     tSynthwave.addEventListener("click", () => {
@@ -61,6 +72,7 @@ function themeChanging() {
         if(curTheme!=='synthwave'){
             document.documentElement.setAttribute("data-theme", "synthwave");
             localStorage.setItem('theme','synthwave');
+            urlChange('synthwave');
         }
     });
     tRetro.addEventListener("click", () => {
@@ -68,6 +80,7 @@ function themeChanging() {
         if(curTheme!=='retro'){
             document.documentElement.setAttribute("data-theme", "retro");
             localStorage.setItem('theme','retro');
+            urlChange('retro');
         }
     });
     tCyberpunk.addEventListener("click", () => {
@@ -75,6 +88,7 @@ function themeChanging() {
         if(curTheme!=='cyberpunk'){
             document.documentElement.setAttribute("data-theme", "cyberpunk");
             localStorage.setItem('theme','cyberpunk');
+            urlChange('cyberpunk');
         }
     });
     tAqua.addEventListener("click", () => {
@@ -82,6 +96,7 @@ function themeChanging() {
         if(curTheme!=='aqua'){
             document.documentElement.setAttribute("data-theme", "aqua");
             localStorage.setItem('theme','aqua');
+            urlChange('aqua');
         }
     });
     tForest.addEventListener("click", () => {
@@ -89,6 +104,7 @@ function themeChanging() {
         if(curTheme!=='forest'){
             document.documentElement.setAttribute("data-theme", "forest");
             localStorage.setItem('theme','forest');
+            urlChange('forest');
         }
     });
     tBlack.addEventListener("click", () => {
@@ -96,6 +112,7 @@ function themeChanging() {
         if(curTheme!=='black'){
             document.documentElement.setAttribute("data-theme", "black");
             localStorage.setItem('theme','black');
+            urlChange('black');
         }
     });
     tCoffee.addEventListener("click", () => {
@@ -103,6 +120,7 @@ function themeChanging() {
         if(curTheme!=='coffee'){
             document.documentElement.setAttribute("data-theme", "coffee");
             localStorage.setItem('theme','coffee');
+            urlChange('coffee');
         }
     });
     tDim.addEventListener("click", () => {
@@ -110,6 +128,7 @@ function themeChanging() {
         if(curTheme!=='dim'){
             document.documentElement.setAttribute("data-theme", "dim");
             localStorage.setItem('theme','dim');
+            urlChange('dim');
         }
     });
     tLemonade.addEventListener("click", () => {
@@ -117,6 +136,7 @@ function themeChanging() {
         if(curTheme!=='lemonade'){
             document.documentElement.setAttribute("data-theme", "lemonade");
             localStorage.setItem('theme','lemonade');
+            urlChange('lemonade');
         }
     });
 
