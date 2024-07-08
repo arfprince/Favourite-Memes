@@ -183,7 +183,7 @@ function buildMemesFeed(memes) {
                 const favouriteMemeSaveModalCloseBtn = document.querySelector("#favouriteMemeSaveModalCloseBtn");
 
                 favouriteMemeSaveModalActiveBtn.click();
-        
+                
                 const saveMemeHandler = () => {
                     
                     let name = favouriteMemeSaveInput.value;
