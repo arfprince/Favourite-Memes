@@ -33,6 +33,7 @@ let startTheme=(
     localStorage.getItem("theme") ??
     "light"
 )
+console.log(startTheme);
 const setTheme = (theme) =>{
     startTheme=theme;
     const sp= new URLSearchParams();
@@ -48,7 +49,7 @@ let demo = (
     "false"
 )
 const setDemo = (demo) => {
-    demo = demo;
+    demo=demo;
     if(demo==='true'){
         localStorage.setItem('apiKey', "nan");
     }
@@ -56,7 +57,6 @@ const setDemo = (demo) => {
     sp.set("demo", demo);
     const newUrl = `${document.location.origin}?${sp.toString()}`;
     window.history.replaceState({}, "", newUrl);
-    localStorage.setItem("demo", demo);
   };
 setDemo(demo);
 
