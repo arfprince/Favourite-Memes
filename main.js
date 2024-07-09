@@ -27,7 +27,21 @@ const warningMsg=document.querySelector("#warningMsg");
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
 let savedMemes=localStorage.getItem('savedMemes');
-let startTheme=localStorage.getItem('theme');
+// let startTheme=localStorage.getItem('theme');
+let startTheme=(
+    new URL(document.location.href).searchParams.get("theme") ??
+    localStorage.getItem("theme") ??
+    "light"
+)
+const setTheme = (theme) =>{
+    startTheme=theme;
+    const sp= new URLSearchParams();
+    sp.set("theme", startTheme);
+    const newUrl = `${document.location.origin}?${sp}`;
+    window.history.replaceState({},"",newUrl);
+    localStorage.setItem("theme",theme);
+};
+setTheme(startTheme);
 let demo = (
     new URL(document.location.href).searchParams.get("demo") ??
     localStorage.getItem("demo") ??
@@ -35,14 +49,14 @@ let demo = (
 )
 const setDemo = (demo) => {
     demo = demo;
+    if(demo==='true'){
+        localStorage.setItem('apiKey', "nan");
+    }
     const sp = new URLSearchParams();
     sp.set("demo", demo);
     const newUrl = `${document.location.origin}?${sp.toString()}`;
     window.history.replaceState({}, "", newUrl);
     localStorage.setItem("demo", demo);
-    if(demo==='true'){
-        localStorage.removeItem('savedMemes');
-    }
   };
 setDemo(demo);
 
