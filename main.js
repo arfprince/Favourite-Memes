@@ -28,9 +28,26 @@ const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
 let savedMemes=localStorage.getItem('savedMemes');
 let startTheme=localStorage.getItem('theme');
+let demo = (
+    new URL(document.location.href).searchParams.get("demo") ??
+    localStorage.getItem("demo") ??
+    "false"
+)
+const setDemo = (demo) => {
+    demo = demo;
+    const sp = new URLSearchParams();
+    sp.set("demo", demo);
+    const newUrl = `${document.location.origin}?${sp.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+    localStorage.setItem("demo", demo);
+    if(demo==='true'){
+        localStorage.removeItem('savedMemes');
+    }
+  };
+setDemo(demo);
 
 function urlChange(theme) {
-    const siteUrl = new URL(window.location);
+    const siteUrl = new URL(window.location);  
     siteUrl.searchParams.set('theme', theme);
     window.history.replaceState({}, '', siteUrl);
 }
