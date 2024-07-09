@@ -33,45 +33,51 @@ let startTheme=(
     localStorage.getItem("theme") ??
     "light"
 )
+let demo = (
+    new URL(document.location.href).searchParams.get("demo") ??
+    localStorage.getItem("demo") ??
+    "false"
+)
 console.log(startTheme);
+console.log(demo);
 const setTheme = (theme) =>{
     startTheme=theme;
+    document.documentElement.setAttribute("data-theme", startTheme);
     const sp= new URLSearchParams();
+    sp.set("demo", localStorage.getItem("demo"));
     sp.set("theme", startTheme);
     const newUrl = `${document.location.origin}?${sp}`;
     window.history.replaceState({},"",newUrl);
     localStorage.setItem("theme",theme);
 };
 setTheme(startTheme);
-let demo = (
-    new URL(document.location.href).searchParams.get("demo") ??
-    localStorage.getItem("demo") ??
-    "false"
-)
 const setDemo = (demo) => {
     demo=demo;
     if(demo==='true'){
         localStorage.setItem('apiKey', "nan");
+        localStorage.removeItem("savedMemes");
     }
     const sp = new URLSearchParams();
     sp.set("demo", demo);
+    sp.set("theme", localStorage.getItem('theme'));
     const newUrl = `${document.location.origin}?${sp.toString()}`;
     window.history.replaceState({}, "", newUrl);
-  };
+    localStorage.setItem('demo',demo);
+};
 setDemo(demo);
 
-function urlChange(theme) {
-    const siteUrl = new URL(window.location);  
-    siteUrl.searchParams.set('theme', theme);
-    window.history.replaceState({}, '', siteUrl);
-}
-if(!startTheme) {
-    localStorage.setItem('theme','light');
-    urlChange('light');
-}else{
-    document.documentElement.setAttribute("data-theme", startTheme);
-    urlChange(startTheme);
-}
+// function urlChange(theme) {
+//     const siteUrl = new URL(window.location);  
+//     siteUrl.searchParams.set('theme', theme);
+//     window.history.replaceState({}, '', siteUrl);
+// }
+// if(!startTheme) {
+//     localStorage.setItem('theme','light');
+//     urlChange('light');
+// }else{
+//     document.documentElement.setAttribute("data-theme", startTheme);
+//     urlChange(startTheme);
+// }
 
 function themeChanging() {
     tDark.addEventListener("click", () => {
@@ -79,7 +85,7 @@ function themeChanging() {
         if(curTheme!=='dark'){
             document.documentElement.setAttribute("data-theme", "dark");
             localStorage.setItem('theme','dark');
-            urlChange('dark');
+            setTheme("dark");
         }
     });
     tDefault.addEventListener("click", () => {
@@ -87,7 +93,7 @@ function themeChanging() {
         if(curTheme!=="light"){
             document.documentElement.setAttribute("data-theme", "light");
             localStorage.setItem('theme','light');
-            urlChange('light');
+            setTheme("light");
         }
     });
     tValentine.addEventListener("click", () => {
@@ -95,7 +101,8 @@ function themeChanging() {
         if(curTheme!=='valentine'){
             document.documentElement.setAttribute("data-theme", "valentine");
             localStorage.setItem('theme','valentine');
-            urlChange('valentine');
+            setTheme("valentine");
+
         }
     });
     tSynthwave.addEventListener("click", () => {
@@ -103,7 +110,7 @@ function themeChanging() {
         if(curTheme!=='synthwave'){
             document.documentElement.setAttribute("data-theme", "synthwave");
             localStorage.setItem('theme','synthwave');
-            urlChange('synthwave');
+            setTheme('synthwave');
         }
     });
     tRetro.addEventListener("click", () => {
@@ -111,7 +118,7 @@ function themeChanging() {
         if(curTheme!=='retro'){
             document.documentElement.setAttribute("data-theme", "retro");
             localStorage.setItem('theme','retro');
-            urlChange('retro');
+            setTheme('retro');
         }
     });
     tCyberpunk.addEventListener("click", () => {
@@ -119,7 +126,7 @@ function themeChanging() {
         if(curTheme!=='cyberpunk'){
             document.documentElement.setAttribute("data-theme", "cyberpunk");
             localStorage.setItem('theme','cyberpunk');
-            urlChange('cyberpunk');
+            setTheme('cyberpunk');
         }
     });
     tAqua.addEventListener("click", () => {
@@ -127,7 +134,7 @@ function themeChanging() {
         if(curTheme!=='aqua'){
             document.documentElement.setAttribute("data-theme", "aqua");
             localStorage.setItem('theme','aqua');
-            urlChange('aqua');
+            setTheme('aqua');
         }
     });
     tForest.addEventListener("click", () => {
@@ -135,7 +142,7 @@ function themeChanging() {
         if(curTheme!=='forest'){
             document.documentElement.setAttribute("data-theme", "forest");
             localStorage.setItem('theme','forest');
-            urlChange('forest');
+            setTheme('forest');
         }
     });
     tBlack.addEventListener("click", () => {
@@ -143,7 +150,7 @@ function themeChanging() {
         if(curTheme!=='black'){
             document.documentElement.setAttribute("data-theme", "black");
             localStorage.setItem('theme','black');
-            urlChange('black');
+            setTheme('black');
         }
     });
     tCoffee.addEventListener("click", () => {
@@ -151,7 +158,7 @@ function themeChanging() {
         if(curTheme!=='coffee'){
             document.documentElement.setAttribute("data-theme", "coffee");
             localStorage.setItem('theme','coffee');
-            urlChange('coffee');
+            setTheme('coffee');
         }
     });
     tDim.addEventListener("click", () => {
@@ -159,7 +166,7 @@ function themeChanging() {
         if(curTheme!=='dim'){
             document.documentElement.setAttribute("data-theme", "dim");
             localStorage.setItem('theme','dim');
-            urlChange('dim');
+            setTheme('dim');
         }
     });
     tLemonade.addEventListener("click", () => {
@@ -167,7 +174,7 @@ function themeChanging() {
         if(curTheme!=='lemonade'){
             document.documentElement.setAttribute("data-theme", "lemonade");
             localStorage.setItem('theme','lemonade');
-            urlChange('lemonade');
+            setTheme('lemonade');
         }
     });
 
