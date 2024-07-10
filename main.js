@@ -324,6 +324,25 @@ searchMemes.addEventListener("input", (e)=>{
             if(apiKey && memeFeedImg.innerHTML===""){
                 searchMemesName.innerText=`Meme Feed ...`;
                 const memes=await getMockData();
+                const tempSpan=document.createElement("span");
+                tempSpan.innerHTML=`<button id="favouriteMemeSaveModalActiveBtn" class="btn hidden" onclick="my_modal_5.showModal()">open modal</button>
+                  <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+                    <div class="modal-box">
+                      <p class="py-4 font-semibold">Give a name to your Favourite Meme!</p>
+                      
+                      <div class="modal-action">
+                        <form method="dialog">
+                          <!-- if there is a button in form, it will close the modal -->
+                          <div>
+                            <input type="text" id="favouriteMemeSaveInput" class="h-12 w-80 rounded-lg border-2 border-blue-600 bg-white text-black">
+                            <button id="favouriteMemeSaveBtn" class=" bg-blue-600 text-white h-12 w-28 rounded-lg">Save!</button>
+                          </div>
+                          <button id="favouriteMemeSaveModalCloseBtn" class="btn hidden">Close</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>`;
+                memeFeedImg.appendChild(tempSpan);  
                 buildMemesFeed(shuffleArray(memes));
             }
         }else if(e.target.value.length>1 && e.target.value.length<101){
@@ -333,6 +352,7 @@ searchMemes.addEventListener("input", (e)=>{
                 memeFeedImg.innerHTML="";
                 searchMemesName.innerText=`Search reasult for "${e.target.value}" ... ...`;
             }
+
             warningMsg.classList.add("hidden");
         }else if(e.target.value.length===1){
             warningMsg.innerText="at least 2 characters required";
