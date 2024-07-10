@@ -23,11 +23,18 @@ const savedMemeCollectionInSideBar=document.querySelector("#savedMemeCollectionI
 const searchMemes=document.querySelector("#searchMemes");
 const searchIcon=document.querySelector("#searchIcon");
 const warningMsg=document.querySelector("#warningMsg");
+const searchMemesName=document.querySelector("#searchMemesName");
 
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
 let savedMemes=localStorage.getItem('savedMemes');
-// let startTheme=localStorage.getItem('theme');
+
+async function getMockData() {
+    const res = await fetch("/mock/mocked_search_meme_result.json");
+    const data = await res.json();
+    return await data.memes;
+}
+
 let startTheme=(
     new URL(document.location.href).searchParams.get("theme") ??
     localStorage.getItem("theme") ??
@@ -38,8 +45,7 @@ let demo = (
     localStorage.getItem("demo") ??
     "false"
 )
-console.log(startTheme);
-console.log(demo);
+
 const setTheme = (theme) =>{
     startTheme=theme;
     document.documentElement.setAttribute("data-theme", startTheme);
@@ -65,19 +71,6 @@ const setDemo = (demo) => {
     localStorage.setItem('demo',demo);
 };
 setDemo(demo);
-
-// function urlChange(theme) {
-//     const siteUrl = new URL(window.location);  
-//     siteUrl.searchParams.set('theme', theme);
-//     window.history.replaceState({}, '', siteUrl);
-// }
-// if(!startTheme) {
-//     localStorage.setItem('theme','light');
-//     urlChange('light');
-// }else{
-//     document.documentElement.setAttribute("data-theme", startTheme);
-//     urlChange(startTheme);
-// }
 
 function themeChanging() {
     tDark.addEventListener("click", () => {
@@ -212,6 +205,7 @@ if(!savedMemes){
 }
 
 function buildMemesFeed(memes) {
+    
     for (let i = 0; i < memes.length; i++) {
         let newSpan = document.createElement("div");
         let memei = memes[i];
@@ -270,7 +264,6 @@ function buildMemesFeed(memes) {
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) { 
-        // Generate random number 
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
         array[i] = array[j];
@@ -278,16 +271,15 @@ function shuffleArray(array) {
     }
     return array;
  }
+
 async function randerMemes() {
     if(apiKey)
     {
         apiElements.classList.add("hidden");
         my_modal_3.close();
         memeFeed.classList.remove("hidden");
-
-        const res = await fetch("/mock/mocked_search_meme_result.json");
-        const data = await res.json();
-        buildMemesFeed(shuffleArray(data.memes));
+        const memes=await getMockData();
+        buildMemesFeed(shuffleArray(memes));
     }
     else
     {
@@ -320,19 +312,29 @@ async function randerMemes() {
 }
 
 let typingTimer;
-searchMemes.addEventListener("input",(e)=>{
+searchMemes.addEventListener("input", (e)=>{
 
     searchIcon.classList.add("hidden");
     clearTimeout(typingTimer);
-    typingTimer = setTimeout(()=>{
+    typingTimer = setTimeout(async () =>{
         if(e.target.value.length<1){
+            warningMsg.classList.add("hidden");
             searchIcon.classList.remove("hidden");
+            
+            if(apiKey && memeFeedImg.innerHTML===""){
+                searchMemesName.innerText=`Meme Feed ...`;
+                const memes=await getMockData();
+                buildMemesFeed(shuffleArray(memes));
+            }
         }else if(e.target.value.length>1 && e.target.value.length<101){
             if(!apiKey){
                 setApiId.click();
+            }else{
+                memeFeedImg.innerHTML="";
+                searchMemesName.innerText=`Search reasult for "${e.target.value}" ... ...`;
             }
             warningMsg.classList.add("hidden");
-        }else if(e.target.value.length<2){
+        }else if(e.target.value.length===1){
             warningMsg.innerText="at least 2 characters required";
             warningMsg.classList.remove("hidden");
         }else{
@@ -340,7 +342,7 @@ searchMemes.addEventListener("input",(e)=>{
             warningMsg.classList.remove("hidden");
         }
 
-    }, "1000");
+    }, "500");
 });
 
 window.addEventListener("load",()=>{
