@@ -24,6 +24,7 @@ const searchMemes=document.querySelector("#searchMemes");
 const searchIcon=document.querySelector("#searchIcon");
 const warningMsg=document.querySelector("#warningMsg");
 const searchMemesName=document.querySelector("#searchMemesName");
+const floating = document.querySelector("#floating");
 
 const baseUrl="https://api.humorapi.com/memes/search?number=10&api-key=";
 let apiKey=localStorage.getItem('apiKey');
@@ -279,7 +280,13 @@ async function randerMemes() {
         my_modal_3.close();
         memeFeed.classList.remove("hidden");
         const memes=await getMockData();
-        buildMemesFeed(shuffleArray(memes));
+        floating.classList.remove("hidden");
+        searchMemesName.innerText=``;
+        setTimeout(()=>{
+            searchMemesName.innerText=`Meme Feed ...`;
+            floating.classList.add("hidden");
+            buildMemesFeed(shuffleArray(memes));
+        }, "800");
     }
     else
     {
@@ -300,7 +307,14 @@ async function randerMemes() {
 
                     localStorage.setItem('apiKey', apiKey);
                     localStorage.setItem('memeInfo', JSON.stringify(data));
-                    buildMemesFeed(([...data.memes]));
+                    
+                    searchMemesName.innerText=``;
+                    floating.classList.remove("hidden");
+                    setTimeout(()=>{
+                        floating.classList.add("hidden");
+                        searchMemesName.innerText=`Meme Feed ...`;
+                        buildMemesFeed(([...data.memes]));
+                    }, "1200");
                 }
             } catch (error) {
                 badResponseMsg.innerText=error;
@@ -352,13 +366,16 @@ searchMemes.addEventListener("input", (e)=>{
 
     searchIcon.classList.add("hidden");
     clearTimeout(typingTimer);
+    const nrml=`Meme Feed ...`;
+    const srcTime=`Search reasult for "${e.target.value}" ... ...`;
     typingTimer = setTimeout(async () =>{
         if(e.target.value.length<1){
             warningMsg.classList.add("hidden");
             searchIcon.classList.remove("hidden");
             
-            if(apiKey && (memeFeedImg.innerHTML==="" || localStorage.getItem('demo')==="true")){
+            if(apiKey && (memeFeedImg.innerHTML || localStorage.getItem('demo')==="true")){
                 searchMemesName.innerText=`Meme Feed ...`;
+                memeFeedImg.innerHTML="";
                 const memes=await getMockData();
                 const tempSpan=document.createElement("span");
                 tempSpan.innerHTML=`<button id="favouriteMemeSaveModalActiveBtn" class="btn hidden" onclick="my_modal_5.showModal()">open modal</button>
@@ -379,19 +396,35 @@ searchMemes.addEventListener("input", (e)=>{
                     </div>
                   </dialog>`;
                 memeFeedImg.appendChild(tempSpan);  
-                buildMemesFeed(shuffleArray(memes));
+                searchMemesName.innerText=``;
+                floating.classList.remove("hidden");
+                setTimeout(()=>{
+                    searchMemesName.innerText=nrml;
+                    floating.classList.add("hidden");
+                    buildMemesFeed(shuffleArray(memes));
+                }, "800");
             }
         }else if(e.target.value.length>1 && e.target.value.length<101){
             if(!apiKey){
                 setApiId.click();
             }else{
                 memeFeedImg.innerHTML="";
-                searchMemesName.innerText=`Search reasult for "${e.target.value}" ... ...`;
+                searchMemesName.innerText="";
                 if(localStorage.getItem('demo')==="true"){
                     const memes=await getMockData();
-                    buildMemesFeed(memes);
+                    floating.classList.remove("hidden");
+                    setTimeout(()=>{
+                        floating.classList.add("hidden");
+                        searchMemesName.innerText=srcTime;
+                        buildMemesFeed(memes);
+                    }, "1200");
                 }else{
-                    showSearchedMemes(e.target.value);
+                    floating.classList.remove("hidden");
+                    setTimeout(()=>{
+                        floating.classList.add("hidden");
+                        searchMemesName.innerText=srcTime;
+                        showSearchedMemes(e.target.value);
+                    }, "1200");
                 }
             }
 
@@ -404,7 +437,7 @@ searchMemes.addEventListener("input", (e)=>{
             warningMsg.classList.remove("hidden");
         }
 
-    }, "500");
+    }, "700");
 });
 
 window.addEventListener("load",()=>{
