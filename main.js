@@ -313,7 +313,6 @@ async function randerMemes() {
 
 async function showSearchedMemes(keyword) {
     const url=`${baseUrl}${apiKey}&keywords=${keyword}`;
-    console.log(url);
     try {
         const res = await fetch(url);
         if(!res){
@@ -343,7 +342,8 @@ async function showSearchedMemes(keyword) {
             buildMemesFeed(data.memes);
         }
     } catch (error) {
-        console.log(error);
+        console.log("caught error");
+        console.log(error.message);
     }
 }
 
@@ -357,7 +357,7 @@ searchMemes.addEventListener("input", (e)=>{
             warningMsg.classList.add("hidden");
             searchIcon.classList.remove("hidden");
             
-            if(apiKey && memeFeedImg.innerHTML===""){
+            if(apiKey && (memeFeedImg.innerHTML==="" || localStorage.getItem('demo')==="true")){
                 searchMemesName.innerText=`Meme Feed ...`;
                 const memes=await getMockData();
                 const tempSpan=document.createElement("span");
@@ -387,7 +387,12 @@ searchMemes.addEventListener("input", (e)=>{
             }else{
                 memeFeedImg.innerHTML="";
                 searchMemesName.innerText=`Search reasult for "${e.target.value}" ... ...`;
-                showSearchedMemes(e.target.value);
+                if(localStorage.getItem('demo')==="true"){
+                    const memes=await getMockData();
+                    buildMemesFeed(memes);
+                }else{
+                    showSearchedMemes(e.target.value);
+                }
             }
 
             warningMsg.classList.add("hidden");
