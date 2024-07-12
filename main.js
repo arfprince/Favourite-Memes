@@ -192,14 +192,14 @@ function displayAllSavedMemes(savesMemes){
             
             const newSpan=document.createElement("span");
             newSpan.innerHTML=`<div class="flex items-center justify-center gap-5">
-                <img class="h-10 w-10" src="${meme.url}" alt="">
+                <img class="h-10 w-10 hover:scale-150" src="${meme.url}" alt="">
                 <a href="${meme.url}" target="_blank" class="underline decoration-sky-700 hover:decoration-wavy underline-offset-4 decoration-2">${meme.description}</a>
             </div>`;
             savedMemeCollection.appendChild(newSpan);
 
             const listItem=document.createElement("li");
             listItem.innerHTML=`<div class="flex items-center justify-center gap-3">
-            <img class="h-10 w-10" src="${meme.url}" alt="">
+            <img class="h-10 w-10 hover:scale-150" src="${meme.url}" alt="">
             <a href="${meme.url}" target="_blank" class="underline decoration-sky-700 hover:decoration-wavy underline-offset-4 decoration-2">${meme.description}</a>
             </div>`;
             savedMemeCollectionInSideBar.appendChild(listItem);
