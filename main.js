@@ -73,20 +73,28 @@ const setDemo = (demo) => {
 };
 setDemo(demo);
 
+function themeBtnTrack(crnt) {
+    if(crnt==='light') crnt ='default';
+    if(document.querySelector(`#${localStorage.getItem('theme')}`))
+        document.querySelector(`#${localStorage.getItem('theme')}`).classList.remove("bg-orange-300");
+    localStorage.setItem('theme',crnt);
+    document.querySelector(`#${localStorage.getItem('theme')}`).classList.add("bg-orange-300");
+}
+themeBtnTrack(startTheme);
 function themeChanging() {
     tDark.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='dark'){
             document.documentElement.setAttribute("data-theme", "dark");
-            localStorage.setItem('theme','dark');
             setTheme("dark");
+            themeBtnTrack('dark');
         }
     });
     tDefault.addEventListener("click", () => {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=="light"){
             document.documentElement.setAttribute("data-theme", "light");
-            localStorage.setItem('theme','light');
+            themeBtnTrack('light');
             setTheme("light");
         }
     });
@@ -94,7 +102,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='valentine'){
             document.documentElement.setAttribute("data-theme", "valentine");
-            localStorage.setItem('theme','valentine');
+            themeBtnTrack('valentine');
             setTheme("valentine");
 
         }
@@ -103,7 +111,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='synthwave'){
             document.documentElement.setAttribute("data-theme", "synthwave");
-            localStorage.setItem('theme','synthwave');
+            themeBtnTrack('synthwave');
             setTheme('synthwave');
         }
     });
@@ -111,7 +119,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='retro'){
             document.documentElement.setAttribute("data-theme", "retro");
-            localStorage.setItem('theme','retro');
+            themeBtnTrack('retro');
             setTheme('retro');
         }
     });
@@ -119,7 +127,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='cyberpunk'){
             document.documentElement.setAttribute("data-theme", "cyberpunk");
-            localStorage.setItem('theme','cyberpunk');
+            themeBtnTrack('cyberpunk');
             setTheme('cyberpunk');
         }
     });
@@ -127,7 +135,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='aqua'){
             document.documentElement.setAttribute("data-theme", "aqua");
-            localStorage.setItem('theme','aqua');
+            themeBtnTrack('aqua');
             setTheme('aqua');
         }
     });
@@ -135,7 +143,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='forest'){
             document.documentElement.setAttribute("data-theme", "forest");
-            localStorage.setItem('theme','forest');
+            themeBtnTrack('forest');
             setTheme('forest');
         }
     });
@@ -143,7 +151,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='black'){
             document.documentElement.setAttribute("data-theme", "black");
-            localStorage.setItem('theme','black');
+            themeBtnTrack('black');
             setTheme('black');
         }
     });
@@ -151,7 +159,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='coffee'){
             document.documentElement.setAttribute("data-theme", "coffee");
-            localStorage.setItem('theme','coffee');
+            themeBtnTrack('coffee');
             setTheme('coffee');
         }
     });
@@ -159,7 +167,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='dim'){
             document.documentElement.setAttribute("data-theme", "dim");
-            localStorage.setItem('theme','dim');
+            themeBtnTrack('dim');
             setTheme('dim');
         }
     });
@@ -167,7 +175,7 @@ function themeChanging() {
         const curTheme=localStorage.getItem('theme');
         if(curTheme!=='lemonade'){
             document.documentElement.setAttribute("data-theme", "lemonade");
-            localStorage.setItem('theme','lemonade');
+            themeBtnTrack('lemonade');
             setTheme('lemonade');
         }
     });
